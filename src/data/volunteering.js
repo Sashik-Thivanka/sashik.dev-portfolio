@@ -1,26 +1,37 @@
-import e1_1 from '../assets/images/events/1-1.jpeg'
-import e1_2 from '../assets/images/events/1-2.jpeg'
-import e1_3 from '../assets/images/events/1-3.jpeg'
-import e1_4 from '../assets/images/events/1-4.jpg'
+import e1_1 from '../assets/images/events/1-1.webp'
+import e1_2 from '../assets/images/events/1-2.webp'
+import e1_3 from '../assets/images/events/1-3.webp'
+import e1_4 from '../assets/images/events/1-4.webp'
 
-import e2_1 from '../assets/images/events/2-1.jpeg'
-import e2_2 from '../assets/images/events/2-2.jpeg'
-import e2_3 from '../assets/images/events/2-3.jpeg'
-import e2_4 from '../assets/images/events/2-4.jpeg'
+import e2_1 from '../assets/images/events/2-1.webp'
+import e2_2 from '../assets/images/events/2-2.webp'
+import e2_3 from '../assets/images/events/2-3.webp'
+import e2_4 from '../assets/images/events/2-4.webp'
 
-import e3_1 from '../assets/images/events/3-1.jfif'
-import e3_2 from '../assets/images/events/3-2.jfif'
-import e3_3 from '../assets/images/events/3-3.jfif'
+import e3_1 from '../assets/images/events/3-1.webp'
+import e3_2 from '../assets/images/events/3-2.webp'
+import e3_3 from '../assets/images/events/3-3.webp'
+import e3_4 from '../assets/images/events/3-4.webp'
 
-import e5_2 from '../assets/images/events/5-2.jpeg'
-import e5_3 from '../assets/images/events/5-3.jpeg'
-import e5_4 from '../assets/images/events/5-4.jpeg'
-import e5_5 from '../assets/images/events/5-5.jpeg'
+import e4_2 from '../assets/images/events/4-2.webp'
+import e4_3 from '../assets/images/events/4-3.webp'
+import e4_4 from '../assets/images/events/4-4.webp'
 
-import e7_1 from '../assets/images/events/7-1.jpg'
-import e7_2 from '../assets/images/events/7-2.jpg'
-import e7_3 from '../assets/images/events/7-3.jpg'
-import e7_4 from '../assets/images/events/7-4.jpg'
+import e5_2 from '../assets/images/events/5-2.webp'
+import e5_3 from '../assets/images/events/5-3.webp'
+import e5_4 from '../assets/images/events/5-4.webp'
+import e5_5 from '../assets/images/events/5-5.webp'
+
+import e7_1 from '../assets/images/events/7-1.webp'
+import e7_2 from '../assets/images/events/7-2.webp'
+import e7_3 from '../assets/images/events/7-3.webp'
+import e7_4 from '../assets/images/events/7-4.webp'
+
+import e8_1 from '../assets/images/events/8-1.webp'
+import e8_2 from '../assets/images/events/8-2.webp'
+import e8_3 from '../assets/images/events/8-3.webp'
+
+import e9_1 from '../assets/images/events/9-1.jpg'
 
 const U = 'https://images.unsplash.com/photo-'
 
@@ -28,15 +39,15 @@ export const volunteeringItems = [
   {
     id: '01',
     name: 'Sri lanka AI Forum',
-    src: U + '1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80',
+    src: e1_1,
     date: 'january 2026',
     description:
-      'Led an intensive 8-week coding bootcamp for underprivileged youth, teaching HTML, CSS, JavaScript fundamentals and project-based thinking in a structured, supportive environment.',
-    role: 'Lead Instructor',
-    organization: 'IEEE AI Driven Sri Lanka',
-    duration: '8 Weeks',
+      'Organized a national discussion on AI with industry experts, bringing together stakeholders from academia, government, and industry to discuss the future of AI in Sri Lanka.',
+    role: 'Industry Outreach and Research Team member',
+    organization: 'AI Driven Sri Lanka',
+    duration: '4 Months',
     location: 'Colombo, Sri Lanka',
-    impact: '',
+    impact: 'National Discussion on AI with Industry Experts',
     images: [
       e1_1,
       e1_2,
@@ -47,7 +58,7 @@ export const volunteeringItems = [
   {
     id: '02',
     name: 'Sri lanka AI Forum',
-    src: U + '1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80',
+    src: e1_1,
     date: 'january 2026',
     description:
       'Organized a national discussion on AI with industry experts, bringing together stakeholders from academia, government, and industry to discuss the future of AI in Sri Lanka.',
@@ -66,7 +77,7 @@ export const volunteeringItems = [
   {
     id: '03',
     name: 'GenZipher 1.0',
-    src: U + '1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80',
+    src: e2_1,
     date: 'February 2026',
     description:
       'Served as an Organizing Committee member for UCSC CSSL GenZ Chapter\'s flagship hackathon, providing on-floor technical support to participants during the CTF and Buildathon rounds. Developed real-time scoring and analytics systems, assisted delegates in resolving technical issues, and coordinated with the OC to ensure smooth event operations throughout.',
@@ -85,37 +96,37 @@ export const volunteeringItems = [
   {
     id: '04',
     name: 'Hour of AI',
-    src: U + '1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
-    date: 'October 2025',
+    src: e3_1,
+    date: 'December 2025',
     description:
-      'Audited 14 local government and NGO websites for WCAG 2.1 compliance, compiled detailed accessibility reports, and guided dev teams through remediation priorities.',
-    role: 'Accessibility Consultant',
-    organization: 'Open Web SL',
+      'Co-coordinated and delivered a hands-on AI & IoT workshop under the global Hour of AI initiative, aimed at improving practical AI and IoT skills among students at the University of Colombo School of Computing.',
+    role: 'Project Co-Coordinator',
+    organization: 'ACM Chapter of UCSC',
     duration: '3 Weeks',
     location: 'Colombo, Sri Lanka',
-    impact: '14 Sites Audited',
+    impact: 'Engaged 70+ students in an interactive learning experience and successfully organized Sri Lanka’s only Hour of AI session, sparking interest in AI and IoT through real-world applications.',
     images: [
-      e3_1,
       e3_2,
       e3_3,
+      e3_4,
     ],
   },
   {
     id: '05',
     name: 'Blitz 2.0',
-    src: U + '1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80',
-    date: 'January 2024',
+    src: e4_2,
+    date: 'November 2025',
     description:
-      'Set up a fortnightly drop-in tech clinic in a community centre, offering free digital skills support, device troubleshooting, and basic internet safety training for elderly residents.',
-    role: 'Community Tech Volunteer',
-    organization: 'Digital Neighbours',
-    duration: 'Ongoing',
-    location: 'Negombo, Sri Lanka',
-    impact: '80+ Residents Helped',
+      'Served as Project Co-Coordinator for a hands-on workshop focused on helping IT undergraduates build and maintain a strong online presence, including developer portfolios and personal branding essentials.',
+    role: 'Project Co-Coordinator',
+    organization: 'Rotaract Club of UCSC',
+    duration: '3 weeks',
+    location: 'Colombo, Sri Lanka',
+    impact: 'Guided and supported 50+ students in overcoming technical and practical challenges, improving their readiness for internships and career opportunities.',
     images: [
-      U + '1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80',
-      U + '1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80',
-      U + '1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80',
+      e4_2,
+      e4_3,
+      e4_4,
     ],
   },
   {
@@ -124,30 +135,28 @@ export const volunteeringItems = [
     src: U + '1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1000&q=80',
     date: 'February 2024',
     description:
-      'Built an open-source data dashboard to visualise public transport and utility outage data, giving citizens real-time insight into service disruptions across the Western Province.',
-    role: 'Frontend Developer',
-    organization: 'CivicTech Lanka',
-    duration: '6 Weeks',
+      'Represented the University of Colombo School of Computing as a Volunteer Representative at the EDEX International Education Exhibition, engaging with visitors and providing insights into academic programs and opportunities.',
+    role: 'Volunteer Representative',
+    organization: 'Edex Expo',
+    duration: '4 Days',
     location: 'Colombo, Sri Lanka',
-    impact: '2 000+ Daily Users',
+    impact: 'Played a key role in representing the university to a wide audience, enhancing outreach while developing strong communication and interpersonal skills.',
     images: [
-      U + '1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80',
-      U + '1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=900&q=80',
-      U + '1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80',
+     e9_1
     ],
   },
   {
     id: '07',
     name: 'Oration 2026',
     src: U + '1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=900&q=80',
-    date: 'March 2024',
+    date: 'January, 2026',
     description:
-      'Founded and ran a monthly open-source study group for junior developers, working through real GitHub issues together, teaching code review culture, and celebrating first-time contributors.',
-    role: 'Group Organiser',
-    organization: 'FOSS Lanka',
-    duration: 'Monthly',
-    location: 'Remote / Colombo',
-    impact: '30 Active Members',
+      'Contributed as a Delegate Team Member at Oration 2026, the flagship speech competition organized by the Gavel Club of the University of Colombo, supporting event coordination and execution.',
+    role: 'Organizing Committee Member - Delegates',
+    organization: 'Gavel Club of University of Colombo',
+    duration: '4 Months',
+    location: 'Colombo, Sri Lanka',
+    impact: 'Contributed as a Delegate Team Member at Oration 2026, the flagship speech competition organized by the Gavel Club of the University of Colombo, supporting event coordination and execution.',
     images: [
      e7_1,
      e7_2,
@@ -161,12 +170,12 @@ export const volunteeringItems = [
     src: U + '1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80',
     date: 'April 2024',
     description:
-      'Rapidly designed and deployed an emergency information landing page within 48 hours for a local flood relief effort, consolidating hotlines, shelter maps, and donation links in one accessible place.',
-    role: 'Emergency Web Developer',
-    organization: 'Relief Connect SL',
+      'Served as an instructor in an outreach program organized by the Gavel Club of the University of Colombo in partnership with the Rotaract Club of the Faculty of Science, delivering English language sessions to O/L students.',
+    role: 'Volunteer Instructor',
+    organization: 'Gavel Club of University of Colombo',
     duration: '48 Hours',
-    location: 'Ratnapura, Sri Lanka',
-    impact: '5 000+ Visits in 72 hrs',
+    location: 'Avissawella, Sri Lanka',
+    impact: 'Helped students improve their communication skills and confidence in English through guided learning, contributing to their academic and personal development.',
     images: [
       e5_2,
       e5_3,
@@ -178,18 +187,18 @@ export const volunteeringItems = [
     id: '09',
     name: 'Tech Day Workshop Series 26',
     src: U + '1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80',
-    date: 'May 2024',
+    date: '2026',
     description:
-      'Ran a free community design clinic over four weekends, helping local small businesses with branding basics, social media templates, and simple Canva/Figma workflows to improve their online presence.',
-    role: 'Design Mentor',
-    organization: 'SME Elevate Programme',
-    duration: '4 Weekends',
-    location: 'Kurunegala, Sri Lanka',
-    impact: '18 Businesses Supported',
+      'Participated in a series of online technical workshops organized by the IEEE Computer Society of UCSC, covering key concepts and practical insights across multiple areas of computing.',
+    role: 'Organizing commitee member',
+    organization: 'IEEE Computer Society of UCSC',
+    duration: 'ongoing',
+    location: 'Colombo, Sri Lanka',
+    impact: 'Supported the planning and execution of multiple sessions, helping deliver accessible technical knowledge while gaining exposure to diverse computing domains.',
     images: [
-      U + '1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80',
-      U + '1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80',
-      U + '1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80',
+      e8_1,
+      e8_2,
+      e8_3,
     ],
   },
   {
@@ -206,44 +215,7 @@ export const volunteeringItems = [
     impact: '6 Mentees, 4 Hired',
     images: [
       U + '1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80',
-      U + '1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=900&q=80',
-      U + '1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80',
     ],
   },
-  {
-    id: '10',
-    name: 'Volunteer Research Sprint',
-    src: U + '1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=900&q=80',
-    date: 'August 2024',
-    description:
-      'Joined a one-week volunteer UX research sprint for a mental-health app startup, conducting user interviews, synthesising findings, and delivering an actionable insight report to their product team.',
-    role: 'UX Researcher',
-    organization: 'MindBridge App',
-    duration: '1 Week Sprint',
-    location: 'Remote',
-    impact: '12 User Interviews',
-    images: [
-      U + '1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=900&q=80',
-      U + '1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80',
-      U + '1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=900&q=80',
-    ],
-  },
-  {
-    id: '11',
-    name: 'Local Makers Network',
-    src: U + '1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80',
-    date: 'October 2024',
-    description:
-      'Co-founded a local makers and creatives network, organising monthly meetups, skill-swaps, and a shared digital resource hub connecting designers, developers, and hardware hobbyists across the city.',
-    role: 'Co-Founder & Organiser',
-    organization: 'Makers Lanka',
-    duration: 'Ongoing',
-    location: 'Colombo, Sri Lanka',
-    impact: '120+ Member Community',
-    images: [
-      U + '1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80',
-      U + '1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80',
-      U + '1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80',
-    ],
-  },
+  
 ]

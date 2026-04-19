@@ -3,17 +3,18 @@ import { motion } from 'framer-motion'
 import { SectionLabel, RollingText, PillButton } from './UI'
 import { useInView, slideUp } from '../utils'
 import logoSrc from '../assets/images/website_loader.png'
-import g1 from '../assets/images/gallery/g1.jpeg'
-import g2 from '../assets/images/gallery/g2.jpeg'
-import g3 from '../assets/images/gallery/g3.jpeg'
-import g4 from '../assets/images/gallery/g4.jpeg'
-import g5 from '../assets/images/gallery/g5.jpeg'
-import g6 from '../assets/images/gallery/g6.jpeg'
-import g7 from '../assets/images/gallery/g7.jpeg'
-import g8 from '../assets/images/gallery/g8.jpeg'
-import g9 from '../assets/images/gallery/g9.jpeg'
-import g10 from '../assets/images/gallery/g10.jpeg'
-import g11 from '../assets/images/gallery/g11.jpeg'
+import LogoLoop from './LogoLoop'
+import g1 from '../assets/images/gallery/g1.webp'
+import g2 from '../assets/images/gallery/g2.webp'
+import g3 from '../assets/images/gallery/g3.webp'
+import g4 from '../assets/images/gallery/g4.webp'
+import g5 from '../assets/images/gallery/g5.webp'
+import g6 from '../assets/images/gallery/g6.webp'
+import g7 from '../assets/images/gallery/g7.webp'
+import g8 from '../assets/images/gallery/g8.webp'
+import g9 from '../assets/images/gallery/g9.webp'
+import g10 from '../assets/images/gallery/g10.webp'
+import g11 from '../assets/images/gallery/g11.webp'
 
 function useIsMobile(bp = 768) {
   const [mobile, setMobile] = useState(() => window.innerWidth <= bp)
@@ -58,22 +59,44 @@ function Footer() {
         <SectionLabel left="© Final Section " right="Community Wrap" />
 
         {/* Gallery strip */}
-        <div style={{ overflow: 'hidden', padding: '0 24px', marginTop: 0 }}>
-          <motion.div
-            animate={{ x: ['0%', '-50%'] }}
-            transition={{ duration: 34, repeat: Infinity, ease: 'linear' }}
-            style={{ display: 'flex', width: 'max-content', gap: 10, alignItems: 'flex-end' }}
-          >
-            {[...galleryImgs, ...galleryImgs].map((img, i) => (
-              <div key={i} style={{
-                flexShrink: 0, width: img.w, height: img.h,
-                borderRadius: 10, overflow: 'hidden'
-              }}>
-                <img src={img.src} alt=""
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div style={{ overflow: 'hidden', padding: 0, marginTop: 0 }}>
+          <LogoLoop
+            logos={galleryImgs}
+            speed={90}
+            direction="left"
+            gap={10}
+            pauseOnHover
+            fadeOut
+            fadeOutColor="#000000"
+            ariaLabel="Footer gallery"
+            className="footer-gallery-loop"
+            scaleOnHover
+            renderItem={(img) => (
+              <div
+                style={{
+                  width: img.w,
+                  height: img.h,
+                  borderRadius: 10,
+                  overflow: 'hidden',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  boxShadow: '0 14px 30px rgba(0,0,0,0.25)',
+                  transform: 'translateZ(0)',
+                }}
+              >
+                <img
+                  src={img.src}
+                  alt=""
+                  draggable={false}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    pointerEvents: 'none',
+                  }}
+                />
               </div>
-            ))}
-          </motion.div>
+            )}
+          />
         </div>
 
         <div style={{
@@ -85,7 +108,7 @@ function Footer() {
           padding: '0 24px',
           marginTop: 12,
         }}>
-          {['Independent.', 'Overview.', 'Multidisciplinary.', 'Focused.'].map((item) => (
+          {['Vision.', 'Drive.', 'Legacy.', 'Beyond.'].map((item) => (
             <span key={item} style={{
               flex: 1,
               textAlign: 'center',

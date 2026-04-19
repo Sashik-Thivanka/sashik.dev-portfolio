@@ -2,14 +2,22 @@ import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { SectionH3, PillButton } from './UI'
-import video from '../assets/images/hero.gif'
+import GridMotion from './GridMotion'
 
-const heroLines = [
-  'Designing, building, and',
-  'securing digital systems',
-  'with deep logic',
-  'and real-world impact.',
-]
+import g1 from '../assets/images/gallery/g1.webp'
+import g2 from '../assets/images/gallery/g2.webp'
+import g3 from '../assets/images/gallery/g3.webp'
+import g4 from '../assets/images/gallery/g4.webp'
+import g5 from '../assets/images/gallery/g5.webp'
+import g6 from '../assets/images/gallery/g6.webp'
+import g7 from '../assets/images/gallery/g7.webp'
+import g8 from '../assets/images/gallery/g8.webp'
+import g9 from '../assets/images/gallery/g9.webp'
+import g10 from '../assets/images/gallery/g10.webp'
+import g11 from '../assets/images/gallery/g11.webp'
+
+const heroTitle = 'Turning complex problems into intelligent systems.'
+const heroParagraph = 'I design and build AI-powered, secure, and scalable solutions with real-world impact.'
 
 const stripItems = ['Code. ', 'Create. ', 'Conquer.']
 const TYPEWRITER_WORDS = ['Code.', 'Create.', 'Conquer.']
@@ -77,99 +85,187 @@ export default function Hero() {
       }}
     >
       {/* Top content */}
-      <div style={{
-        display: 'flex',
-        flexDirection: isMobile ? 'column' : 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        padding: isMobile ? '16px 16px 0' : '24px 24px 0',
-        gap: isMobile ? 16 : 24,
-      }}>
-        {/* Reel on mobile goes first (above text) */}
-        {isMobile && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 20 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 }}
-            style={{
-              width: '100%',
-              aspectRatio: '4 / 3',
-              borderRadius: 10,
-              overflow: 'hidden',
-            }}
-          >
-            <img src={video} alt="Reel"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-          </motion.div>
-        )}
-
-        {/* Heading lines + CTA */}
-        <div style={{ flex: '1 1 300px', maxWidth: isMobile ? '100%' : 540, display: 'flex', flexDirection: 'column', gap: 0 }}>
-          {heroLines.map((line, i) => (
-            <motion.div
-              key={line}
-              initial={{ opacity: 0, y: 45 }}
-              animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 45 }}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.05 + i * 0.04 }}
-            >
-              <SectionH3>{line}</SectionH3>
-            </motion.div>
-          ))}
-
-          {/* Desktop-only CTA */}
-          {!isMobile && (
+      <div
+        style={{
+          padding: isMobile ? '16px 16px 0' : '24px 24px 0',
+          position: 'relative',
+          zIndex: 2,
+          paddingBottom: isMobile ? 26 + 18 : 26 + 24,
+        }}
+      >
+        <div
+          style={{
+            display: isMobile ? 'flex' : 'grid',
+            flexDirection: isMobile ? 'column' : undefined,
+            gridTemplateColumns: isMobile ? undefined : '540px 1fr',
+            gap: isMobile ? 16 : 48,
+            alignItems: 'start',
+          }}
+        >
+          {/* Mobile media goes first */}
+          {isMobile && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 20 }}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
-              style={{ marginTop: 32 }}
+              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 }}
+              style={{
+                width: '100%',
+                height: 360,
+                position: 'relative',
+                marginBottom: 6,
+                borderRadius: 14,
+                overflow: 'hidden',
+              }}
             >
-              <PillButton href="#work">See Projects</PillButton>
+              <GridMotion
+                gradientColor="black"
+                maxMoveAmount={180}
+                items={[
+                  g1, g2, g3, g4, g5, g6, g7,
+                  g8, g9, g10, g11, g1, g2, g3,
+                  g4, g5, g6, g7, g8, g9, g10,
+                  g11, g1, g2, g3, g4, g5, g6,
+                ]}
+              />
+            </motion.div>
+          )}
+
+          {/* Left: Heading + paragraph + CTA */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginTop: isMobile ? 8 : 14 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 45 }}
+              animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 45 }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+            >
+              <SectionH3>{heroTitle}</SectionH3>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 24 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
+              style={{
+                margin: '14px 0 0',
+                fontFamily: "'Inter Display', sans-serif",
+                fontSize: isMobile ? 16 : 18,
+                fontWeight: 500,
+                lineHeight: 1.35,
+                color: 'rgba(255,255,255,0.78)',
+                maxWidth: isMobile ? '100%' : 520,
+              }}
+            >
+              {heroParagraph}
+            </motion.p>
+
+            {!isMobile && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 20 }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
+                style={{ marginTop: 28, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}
+              >
+                <PillButton href="#work">Explore Projects</PillButton>
+                <motion.a
+                  href="#volunteering"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '12px 14px',
+                    borderRadius: 259,
+                    border: 'none',
+                    fontFamily: "'Inter Display', sans-serif",
+                    fontSize: 16,
+                    fontWeight: 700,
+                    letterSpacing: '-0.3px',
+                    color: '#000',
+                    background: '#fff',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    cursor: 'pointer',
+                    textTransform: 'uppercase',
+                    textDecoration: 'none',
+                    transition: 'transform 0.2s ease, background 0.2s ease, color 0.2s ease',
+                  }}
+                  whileHover={{ scale: 0.98 }}
+                  whileTap={{ scale: 0.96 }}
+                >
+                  Community Work
+                </motion.a>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Right: media frame (desktop only) */}
+          {!isMobile && (
+            <motion.div
+              initial={{ opacity: 0.1, scale: 0.3, x: 220, y: -220 }}
+              animate={{ opacity: loaded ? 1 : 0.1, scale: loaded ? 1 : 0.3, x: loaded ? 0 : 220, y: loaded ? 0 : -220 }}
+              transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 }}
+              style={{
+                justifySelf: 'end',
+                width: 560,
+                height: 420,
+                marginTop: 14,
+                alignSelf: 'end',
+                zIndex: 3,
+                position: 'relative',
+                borderRadius: 14,
+                overflow: 'hidden',
+              }}
+            >
+              <GridMotion
+                gradientColor="black"
+                maxMoveAmount={260}
+                items={[
+                  g1, g2, g3, g4, g5, g6, g7,
+                  g8, g9, g10, g11, g1, g2, g3,
+                  g4, g5, g6, g7, g8, g9, g10,
+                  g11, g1, g2, g3, g4, g5, g6,
+                ]}
+              />
             </motion.div>
           )}
         </div>
 
-        {/* Reel on desktop (right side) */}
-        {!isMobile && (
-          <motion.div
-            initial={{ opacity: 0.1, scale: 0.3, x: 280, y: -270 }}
-            animate={{ opacity: loaded ? 1 : 0.1, scale: loaded ? 1 : 0.3, x: loaded ? 0 : 280, y: loaded ? 0 : -270 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 }}
-            style={{
-              flex: '0 0 auto',
-              width: 420,
-              aspectRatio: '4 / 3',
-              borderRadius: 10,
-              overflow: 'hidden',
-              zIndex: 1,
-            }}
-          >
-            <img src={video} alt="Reel"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-          </motion.div>
-        )}
+        {/* Code / Create / Conquer strip (behind media, no negative margins) */}
+        <div style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: 26,
+          background: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: isMobile ? '0 16px' : '0 24px',
+          zIndex: 1,
+        }}>
+          {stripItems.map(item => (
+            <span key={item} style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: 12, fontWeight: 700,
+              color: '#000', letterSpacing: '0.02em'
+            }}>
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {/* Code / Create / Conquer strip */}
-      <div style={{
-        height: 26,
-        background: '#fff',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 16px',
-        marginTop: isMobile ? 16 : 24,
-      }}>
-        {stripItems.map(item => (
-          <span key={item} style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: 12, fontWeight: 700,
-            color: '#000', letterSpacing: '0.02em'
-          }}>
-            {item}
-          </span>
-        ))}
-      </div>
+      {/* Hero GridMotion styling (scoped) */}
+      <style>{`
+        /* Slight brutal overlay for legibility */
+        .gridMotion-intro::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at 60% 40%, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.62) 70%);
+          pointer-events: none;
+          z-index: 3;
+        }
+      `}</style>
 
       {/* Bottom bar + Big title */}
       <div style={{ marginTop: isMobile ? 16 : 40 }}>

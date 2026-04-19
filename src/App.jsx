@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { Suspense, lazy, useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Preloader from './components/Preloader'
 import SplashScreen from './components/SplashScreen'
@@ -7,14 +7,16 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import About from './components/About'
 import Work from './components/Work'
-import WorkDetail from './components/WorkDetail'
-import VolunteeringDetail from './components/VolunteeringDetail'
 import Services from './components/Services'
-import AboutLong from './components/AboutLong'
-import Experience from './components/Experience'
-import Volunteering from './components/Volunteering'
-import FAQ from './components/FAQ'
-import Footer from './components/Footer'
+import BrutalReveal from './components/BrutalReveal'
+
+const WorkDetail = lazy(() => import('./components/WorkDetail'))
+const VolunteeringDetail = lazy(() => import('./components/VolunteeringDetail'))
+const AboutLong = lazy(() => import('./components/AboutLong'))
+const Experience = lazy(() => import('./components/Experience'))
+const Volunteering = lazy(() => import('./components/Volunteering'))
+const FAQ = lazy(() => import('./components/FAQ'))
+const Footer = lazy(() => import('./components/Footer'))
 
 export default function App() {
   const [showPreloader, setShowPreloader]         = useState(true)
@@ -57,22 +59,26 @@ export default function App() {
       <AnimatePresence mode="wait">
         {/* Work detail view */}
         {contentReady && selectedWork && (
-          <WorkDetail
-            key={`work-detail-${selectedWork.id}`}
-            project={selectedWork}
-            onBack={handleBack}
-            onWorkClick={handleWorkClick}
-          />
+          <Suspense fallback={null}>
+            <WorkDetail
+              key={`work-detail-${selectedWork.id}`}
+              project={selectedWork}
+              onBack={handleBack}
+              onWorkClick={handleWorkClick}
+            />
+          </Suspense>
         )}
 
         {/* Volunteering detail view */}
         {contentReady && !selectedWork && selectedVolunteering && (
-          <VolunteeringDetail
-            key={`vol-detail-${selectedVolunteering.id}`}
-            item={selectedVolunteering}
-            onBack={handleVolunteerBack}
-            onItemClick={handleVolunteerClick}
-          />
+          <Suspense fallback={null}>
+            <VolunteeringDetail
+              key={`vol-detail-${selectedVolunteering.id}`}
+              item={selectedVolunteering}
+              onBack={handleVolunteerBack}
+              onItemClick={handleVolunteerClick}
+            />
+          </Suspense>
         )}
 
         {/* Main portfolio */}
@@ -98,14 +104,38 @@ export default function App() {
             <CustomCursor />
             <Nav />
             <Hero />
-            <About />
-            <Work onWorkClick={handleWorkClick} />
-            <Services />
-            <AboutLong />
-            <Experience />
-            <Volunteering onItemClick={handleVolunteerClick} />
-            <FAQ />
-            <Footer />
+            <BrutalReveal>
+              <About />
+            </BrutalReveal>
+            <BrutalReveal delay={0.03}>
+              <Work onWorkClick={handleWorkClick} />
+            </BrutalReveal>
+            <BrutalReveal delay={0.04}>
+              <Services />
+            </BrutalReveal>
+            <Suspense fallback={null}>
+              <BrutalReveal delay={0.05}>
+                <AboutLong />
+              </BrutalReveal>
+            </Suspense>
+            <Suspense fallback={null}>
+              <BrutalReveal delay={0.06}>
+                <Experience />
+              </BrutalReveal>
+            </Suspense>
+            <Suspense fallback={null}>
+              <Volunteering onItemClick={handleVolunteerClick} />
+            </Suspense>
+            <Suspense fallback={null}>
+              <BrutalReveal delay={0.08}>
+                <FAQ />
+              </BrutalReveal>
+            </Suspense>
+            <Suspense fallback={null}>
+              <BrutalReveal delay={0.09}>
+                <Footer />
+              </BrutalReveal>
+            </Suspense>
           </motion.div>
         )}
       </AnimatePresence>

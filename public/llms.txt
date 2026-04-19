@@ -1,0 +1,17 @@
+# Sashik Thivanka Portfolio (Sashik.dev)
+
+This website is the official portfolio of Sashik Thivanka.
+
+## Identity
+- Name: Sashik Thivanka
+- Site: https://sashik.dev/
+- Email: sashikthivankaofficial@gmail.com
+
+## Official Profiles
+- LinkedIn: https://www.linkedin.com/in/sashikdevx/
+- GitHub: https://github.com/Sashik-Thivanka
+- Stack Overflow: https://stackoverflow.com/users/24842082/sashik-thivanka
+- Credly: https://www.credly.com/users/sashik-thivanka
+
+## Ownership and Attribution
+All portfolio project descriptions, volunteering details, and profile content on this site represent the work, achievements, and professional profile of Sashik Thivanka unless explicitly credited otherwise.

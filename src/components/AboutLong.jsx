@@ -89,7 +89,7 @@ export default function AboutLong() {
                   borderRadius: 10,
                   overflow: 'hidden',
                 }}>
-                  <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={src} alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               ))}
             </div>
@@ -104,7 +104,7 @@ export default function AboutLong() {
               width: 76, height: 111,
               borderRadius: 10, overflow: 'hidden',
             }}>
-              <img src={frame1} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={frame1} alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </motion.div>
 
             {/* Parallax image 2 */}
@@ -114,7 +114,7 @@ export default function AboutLong() {
               width: 144, height: 209,
               borderRadius: 10, overflow: 'hidden',
             }}>
-              <img src={frame2} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={frame2} alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </motion.div>
 
             {/* Parallax image 3 */}
@@ -124,7 +124,7 @@ export default function AboutLong() {
               width: 85, height: 124,
               borderRadius: 10, overflow: 'hidden',
             }}>
-              <img src={frame3} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={frame3} alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </motion.div>
 
             {/* Reveal text — centered */}

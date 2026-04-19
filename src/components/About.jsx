@@ -1,6 +1,6 @@
 // about section
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { SectionLabel, SectionH3, PillButton } from './UI'
 import { useInView, slideUp } from '../utils'
@@ -36,6 +36,17 @@ const socialLinks = [
 ]
 
 const aboutStripItems = ['Code.', 'Create.', 'Conquer.']
+
+function useIsMobile(bp = 768) {
+  const [mobile, setMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= bp)
+  useEffect(() => {
+    const fn = () => setMobile(window.innerWidth <= bp)
+    fn()
+    window.addEventListener('resize', fn)
+    return () => window.removeEventListener('resize', fn)
+  }, [bp])
+  return mobile
+}
 
 function SocialCard({ icon, label, href }) {
   return (
@@ -85,6 +96,7 @@ function SocialCard({ icon, label, href }) {
 }
 
 export default function About() {
+  const isMobile = useIsMobile()
   const [ref, inView] = useInView()
 
   return (
@@ -150,17 +162,26 @@ export default function About() {
             zIndex: 1
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <motion.div
               variants={slideUp}
               initial="hidden"
               animate={inView ? 'visible' : 'hidden'}
             >
-              <SectionH3>
-              Code that holds up.
-              Systems built to scale.
-              Secure, precise and shipped.  
-              Without compromise.
+              <SectionH3
+                style={{
+                  fontSize: isMobile ? 'clamp(18px, 4.6vw, 22px)' : 'clamp(20px, 2.2vw, 28px)',
+                  lineHeight: isMobile ? '1.35' : '1.28',
+                  letterSpacing: isMobile ? '-0.3px' : '-0.8px',
+                  mixBlendMode: 'normal',
+                }}
+              >
+                <span style={{ display: 'block' }}>
+                I’m a developer with a background in statistics, focused on building intelligent, scalable systems that solve real-world problems.
+                </span>
+                <span style={{ display: 'block', marginTop: 5 }}>
+                I work at the intersection of AI, data, and decision-making designing solutions that are built to last and perform in real conditions.
+                </span>
               </SectionH3>
             </motion.div>
 

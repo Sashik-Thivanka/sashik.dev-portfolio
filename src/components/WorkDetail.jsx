@@ -60,6 +60,8 @@ function MoreCard({ project, onWorkClick, cardHeight = 390 }) {
         }}>
           <img
             src={project.bg} alt={project.title}
+            loading="lazy"
+            decoding="async"
             style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }}
           />
 
@@ -80,7 +82,7 @@ function MoreCard({ project, onWorkClick, cardHeight = 390 }) {
             }}
           >
             <div style={{ width: '50%', height: '50%', borderRadius: 10, overflow: 'hidden', boxShadow: '0 18px 30px rgba(0,0,0,0.28)' }}>
-              <img src={project.inner} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={project.inner} alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           </motion.div>
 
@@ -328,8 +330,11 @@ export default function WorkDetail({ project, onBack, onWorkClick }) {
                 <img
                   src={src}
                   alt={`${project.title} — view ${i + 1}`}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
                   style={{
-                    width: '100%', height: '100%',
+                    width: '100%',
+                    height: '100%',
                     objectFit: 'cover',
                     transform: 'scale(1.04)',
                     display: 'block',

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace with your production sitemap URL if your domain changes.
+Sitemap: https://sashik.dev/sitemap.xml

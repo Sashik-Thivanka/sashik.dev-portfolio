@@ -79,6 +79,8 @@ function MoreCard({ item, onItemClick }) {
         }}>
           <img
             src={item.src} alt={item.name}
+            loading="lazy"
+            decoding="async"
             style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }}
           />
           <motion.div
@@ -273,6 +275,8 @@ export default function VolunteeringDetail({ item, onBack, onItemClick }) {
                 <img
                   src={src}
                   alt={`${item.name} — view ${i + 1}`}
+                  loading="eager"
+                  decoding="async"
                   style={{
                     width: '100%', height: '100%',
                     objectFit: 'cover',

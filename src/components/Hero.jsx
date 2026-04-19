@@ -81,7 +81,8 @@ export default function Hero() {
       ref={containerRef}
       style={{
         background: '#000', width: '100%', maxWidth: 1480,
-        margin: '0 auto', paddingTop: isMobile ? 70 : 90, overflow: 'hidden'
+        margin: '0 auto', paddingTop: isMobile ? 70 : 90, overflow: 'hidden',
+        touchAction: 'pan-y'
       }}
     >
       {/* Top content */}
@@ -115,6 +116,7 @@ export default function Hero() {
                 marginBottom: 6,
                 borderRadius: 14,
                 overflow: 'hidden',
+                pointerEvents: 'none',
               }}
             >
               <GridMotion
@@ -212,6 +214,7 @@ export default function Hero() {
                 position: 'relative',
                 borderRadius: 14,
                 overflow: 'hidden',
+                pointerEvents: 'none',
               }}
             >
               <GridMotion

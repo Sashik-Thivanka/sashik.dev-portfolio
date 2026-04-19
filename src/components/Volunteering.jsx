@@ -476,7 +476,8 @@ export default function Volunteering({ onItemClick }) {
                       <img
                         src={imageSrc(layer.imageNumber)}
                         alt={imageName(layer.imageNumber)}
-                        loading="eager"
+                        loading={i < 3 ? 'eager' : 'lazy'}
+                        fetchPriority={i < 3 ? 'high' : 'low'}
                         decoding="async"
                         style={{
                           width: '100%',

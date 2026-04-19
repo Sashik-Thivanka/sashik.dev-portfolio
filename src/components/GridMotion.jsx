@@ -11,6 +11,8 @@ const isImageLike = (value) => {
 const GridMotion = ({ items = [], gradientColor = 'black', maxMoveAmount = 260 }) => {
   const rowRefs = useRef([])
   const mouseXRef = useRef(typeof window !== 'undefined' ? window.innerWidth / 2 : 0)
+  const targetXRef = useRef([0, 0, 0, 0])
+  const currentXRef = useRef([0, 0, 0, 0])
 
   const combinedItems = useMemo(() => {
     const totalItems = 28
@@ -19,33 +21,37 @@ const GridMotion = ({ items = [], gradientColor = 'black', maxMoveAmount = 260 }
   }, [items])
 
   useEffect(() => {
-    gsap.ticker.lagSmoothing(0)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
+
+    const setters = rowRefs.current.map((row) => (row ? gsap.quickSetter(row, 'x', 'px') : null))
 
     const handlePointerMove = (e) => {
       // Touch support (uses the first touch point)
       const clientX = e.touches?.[0]?.clientX ?? e.clientX
       if (typeof clientX === 'number') mouseXRef.current = clientX
+
+      const normalized = (mouseXRef.current / window.innerWidth) * maxMoveAmount - maxMoveAmount / 2
+      for (let i = 0; i < 4; i += 1) {
+        const direction = i % 2 === 0 ? 1 : -1
+        targetXRef.current[i] = normalized * direction
+      }
     }
 
     const updateMotion = () => {
-      const baseDuration = 0.8
-      const inertiaFactors = [0.6, 0.4, 0.3, 0.2]
+      const smoothing = 0.11
+      const damped = currentXRef.current
+      const target = targetXRef.current
 
-      rowRefs.current.forEach((row, index) => {
-        if (!row) return
-        const direction = index % 2 === 0 ? 1 : -1
-        const moveAmount =
-          ((mouseXRef.current / window.innerWidth) * maxMoveAmount - maxMoveAmount / 2) * direction
-
-        gsap.to(row, {
-          x: moveAmount,
-          duration: baseDuration + inertiaFactors[index % inertiaFactors.length],
-          ease: 'power3.out',
-          overwrite: 'auto',
-        })
-      })
+      for (let i = 0; i < setters.length; i += 1) {
+        const setX = setters[i]
+        if (!setX) continue
+        damped[i] += (target[i] - damped[i]) * smoothing
+        setX(damped[i])
+      }
     }
 
+    handlePointerMove({ clientX: mouseXRef.current })
     gsap.ticker.add(updateMotion)
     window.addEventListener('mousemove', handlePointerMove)
     window.addEventListener('touchmove', handlePointerMove, { passive: true })

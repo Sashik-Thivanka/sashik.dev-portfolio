@@ -201,21 +201,5 @@ export const volunteeringItems = [
       e8_3,
     ],
   },
-  {
-    id: '11',
-    name: 'Mandahasa',
-    src: U + '1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80',
-    date: 'June 2024',
-    description:
-      'Mentored six young developers aged 16–22 over six months through a structured programme, covering portfolio building, interview prep, GitHub workflows, and navigating the tech job market.',
-    role: 'Tech Mentor',
-    organization: 'NextGen Devs SL',
-    duration: '6 Months',
-    location: 'Colombo, Sri Lanka',
-    impact: '6 Mentees, 4 Hired',
-    images: [
-      U + '1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80',
-    ],
-  },
   
 ]

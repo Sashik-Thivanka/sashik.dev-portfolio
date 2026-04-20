@@ -185,47 +185,9 @@ export default function Volunteering({ onItemClick }) {
   }, [isMobile])
 
   useEffect(() => {
-    if (!isMobile) return
-
-    const spotlight = spotlightRef.current
-    const carousel = carouselRef.current
-    if (!spotlight || !carousel) return
-
-    const build = () => {
-      const maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth)
-      // Keep the pinned tail short to avoid “empty space” after the last card.
-      const endDistance = maxScroll + 140
-
-      const t = ScrollTrigger.create({
-        trigger: spotlight,
-        start: 'top top',
-        end: `+=${endDistance}`,
-        pin: true,
-        scrub: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          carousel.scrollLeft = maxScroll * self.progress
-        },
-      })
-
-      return () => t.kill()
-    }
-
-    let cleanup = build()
-    ScrollTrigger.refresh()
-
-    const onResize = () => {
-      cleanup?.()
-      cleanup = build()
-      ScrollTrigger.refresh()
-    }
-    window.addEventListener('resize', onResize)
-
-    return () => {
-      window.removeEventListener('resize', onResize)
-      cleanup?.()
-    }
+    if (!isMobile) return undefined
+    // Keep native mobile scrolling behavior; pinned scrub caused elastic/sticky feel.
+    return undefined
   }, [isMobile])
 
   return (
@@ -311,10 +273,10 @@ export default function Volunteering({ onItemClick }) {
           style={{
             position: 'relative',
             width: '100%',
-            height: isMobile ? '100svh' : '100svh',
+            height: isMobile ? 'auto' : '100svh',
             backgroundColor: '#000',
             perspective: isMobile ? undefined : 1000,
-            overflow: isMobile ? 'hidden' : 'hidden',
+            overflow: isMobile ? 'visible' : 'hidden',
             marginTop: 22,
             paddingBottom: 0,
             display: isMobile ? 'flex' : undefined,
@@ -355,7 +317,7 @@ export default function Volunteering({ onItemClick }) {
                 paddingRight: 16,
                 display: 'flex',
                 gap: 14,
-                overflowX: 'hidden',
+                overflowX: 'auto',
                 overflowY: 'hidden',
                 scrollSnapType: 'none',
                 WebkitOverflowScrolling: 'touch',

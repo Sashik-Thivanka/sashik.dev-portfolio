@@ -10,6 +10,16 @@ import s3 from '../assets/images/services/s3.webp'
 import s4 from '../assets/images/services/s4.webp'
 import s5 from '../assets/images/services/s5.webp'
 
+function useIsMobile(bp = 768) {
+  const [mobile, setMobile] = React.useState(() => window.innerWidth <= bp)
+  useEffect(() => {
+    const fn = () => setMobile(window.innerWidth <= bp)
+    window.addEventListener('resize', fn)
+    return () => window.removeEventListener('resize', fn)
+  }, [bp])
+  return mobile
+}
+
 const services = [
   {
     id: '01',
@@ -306,6 +316,7 @@ function ServiceRow({ service, inView, index }) {
 }
 
 export default function Services() {
+  const isMobile = useIsMobile()
   const [headRef, headInView] = useInView()
   const [listRef, listInView] = useInView()
   const sectionRef = useRef(null)
@@ -369,7 +380,7 @@ export default function Services() {
         }
       `}</style>
 
-      <ServicesImageTrail items={trailItems} eventTargetRef={sectionRef} />
+      {!isMobile && <ServicesImageTrail items={trailItems} eventTargetRef={sectionRef} />}
       <div style={{ maxWidth: 1480, margin: '0 auto' }}>
         <div className="services-foreground">
           <SectionLabel left="© Services" right="Digital Crafts" />

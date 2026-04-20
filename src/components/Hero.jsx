@@ -90,7 +90,13 @@ export default function Hero() {
 
     const ctx = gsap.context(() => {
       const hasPlayed = sessionStorage.getItem('hero-intro-played') === '1'
-      if (hasPlayed) return
+      if (hasPlayed) {
+        if (heroNameRef.current) gsap.set(heroNameRef.current, { opacity: 1, yPercent: 0 })
+        if (loaderRef.current) gsap.set(loaderRef.current, { xPercent: -110 })
+        if (topDividerRef.current) gsap.set(topDividerRef.current, { scaleX: 1, transformOrigin: 'left center' })
+        if (bottomDividerRef.current) gsap.set(bottomDividerRef.current, { scaleX: 1, transformOrigin: 'left center' })
+        return
+      }
 
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 

@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { SectionH3, PillButton } from './UI'
 import GridMotion from './GridMotion'
@@ -21,6 +20,28 @@ const heroParagraph = 'I design and build AI-powered, secure, and scalable solut
 
 const stripItems = ['Code. ', 'Create. ', 'Conquer.']
 const TYPEWRITER_WORDS = ['Code.', 'Create.', 'Conquer.']
+const HERO_IMAGE_SOURCES = [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11]
+const HERO_GRID_ITEMS = [
+  g1, g2, g3, g4, g5, g6, g7,
+  g8, g9, g10, g11, g1, g2, g3,
+  g4, g5, g6, g7, g8, g9, g10,
+  g11, g1, g2, g3, g4, g5, g6,
+]
+
+const preloadImage = (src) => new Promise((resolve) => {
+  const img = new Image()
+  img.decoding = 'sync'
+  img.fetchPriority = 'high'
+  img.src = src
+
+  if (img.complete) {
+    resolve()
+    return
+  }
+
+  img.onload = () => resolve()
+  img.onerror = () => resolve()
+})
 
 function useIsMobile(bp = 768) {
   const [mobile, setMobile] = useState(() => window.innerWidth <= bp)
@@ -37,13 +58,67 @@ export default function Hero() {
   const [loaded, setLoaded] = useState(false)
   const [heroName, setHeroName] = useState('')
   const containerRef = useRef(null)
+  const mediaRef = useRef(null)
+  const titleRef = useRef(null)
+  const paragraphRef = useRef(null)
+  const ctaRef = useRef(null)
+  const stripRef = useRef(null)
+  const topDividerRef = useRef(null)
   const heroNameRef = useRef(null)
+  const loaderRef = useRef(null)
+  const bottomDividerRef = useRef(null)
   const decodeTweenRef = useRef(null)
 
   useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 30)
-    return () => clearTimeout(t)
+    let cancelled = false
+    const failSafe = setTimeout(() => {
+      if (!cancelled) setLoaded(true)
+    }, 1400)
+
+    Promise.all(HERO_IMAGE_SOURCES.map(preloadImage)).then(() => {
+      if (!cancelled) setLoaded(true)
+    })
+
+    return () => {
+      cancelled = true
+      clearTimeout(failSafe)
+    }
   }, [])
+
+  useLayoutEffect(() => {
+    if (!loaded) return
+
+    const ctx = gsap.context(() => {
+      const hasPlayed = sessionStorage.getItem('hero-intro-played') === '1'
+      if (hasPlayed) return
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+
+      if (mediaRef.current) gsap.set(mediaRef.current, { opacity: 0, y: 28, scale: 0.96 })
+      if (titleRef.current) gsap.set(titleRef.current, { opacity: 0, y: 42 })
+      if (paragraphRef.current) gsap.set(paragraphRef.current, { opacity: 0, y: 24 })
+      if (ctaRef.current) gsap.set(ctaRef.current, { opacity: 0, y: 18 })
+      if (stripRef.current) gsap.set(stripRef.current, { y: 26 })
+      if (topDividerRef.current) gsap.set(topDividerRef.current, { scaleX: 0, transformOrigin: 'left center' })
+      if (bottomDividerRef.current) gsap.set(bottomDividerRef.current, { scaleX: 0, transformOrigin: 'left center' })
+      if (heroNameRef.current) gsap.set(heroNameRef.current, { yPercent: 100, opacity: 0 })
+      if (loaderRef.current) gsap.set(loaderRef.current, { xPercent: 0 })
+
+      if (mediaRef.current) tl.to(mediaRef.current, { opacity: 1, y: 0, scale: 1, duration: 0.75 }, 0.05)
+      if (titleRef.current) tl.to(titleRef.current, { opacity: 1, y: 0, duration: 0.62 }, 0.1)
+      if (paragraphRef.current) tl.to(paragraphRef.current, { opacity: 1, y: 0, duration: 0.55 }, 0.2)
+      if (ctaRef.current) tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.48 }, 0.3)
+      if (stripRef.current) tl.to(stripRef.current, { y: 0, duration: 0.5 }, 0.24)
+      if (topDividerRef.current) tl.to(topDividerRef.current, { scaleX: 1, duration: 0.72 }, 0.34)
+      if (heroNameRef.current) tl.to(heroNameRef.current, { opacity: 1, yPercent: 0, duration: 0.9, ease: 'power4.out' }, 0.44)
+      if (loaderRef.current) tl.to(loaderRef.current, { xPercent: -110, duration: 0.9, ease: 'power3.inOut' }, 0.6)
+      if (bottomDividerRef.current) tl.to(bottomDividerRef.current, { scaleX: 1, duration: 0.72 }, 0.74)
+
+      sessionStorage.setItem('hero-intro-played', '1')
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [loaded])
 
   useEffect(() => {
     if (!loaded) return
@@ -105,10 +180,8 @@ export default function Hero() {
         >
           {/* Mobile media goes first */}
           {isMobile && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 20 }}
-              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 }}
+            <div
+              ref={mediaRef}
               style={{
                 width: '100%',
                 height: 360,
@@ -122,30 +195,20 @@ export default function Hero() {
               <GridMotion
                 gradientColor="black"
                 maxMoveAmount={180}
-                items={[
-                  g1, g2, g3, g4, g5, g6, g7,
-                  g8, g9, g10, g11, g1, g2, g3,
-                  g4, g5, g6, g7, g8, g9, g10,
-                  g11, g1, g2, g3, g4, g5, g6,
-                ]}
+                items={HERO_GRID_ITEMS}
+                interactive={false}
               />
-            </motion.div>
+            </div>
           )}
 
           {/* Left: Heading + paragraph + CTA */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginTop: isMobile ? 8 : 14 }}>
-            <motion.div
-              initial={{ opacity: 0, y: 45 }}
-              animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 45 }}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-            >
+            <div ref={titleRef}>
               <SectionH3>{heroTitle}</SectionH3>
-            </motion.div>
+            </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 24 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
+            <p
+              ref={paragraphRef}
               style={{
                 margin: '14px 0 0',
                 fontFamily: "'Inter Display', sans-serif",
@@ -157,17 +220,15 @@ export default function Hero() {
               }}
             >
               {heroParagraph}
-            </motion.p>
+            </p>
 
             {!isMobile && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 20 }}
-                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
+              <div
+                ref={ctaRef}
                 style={{ marginTop: 28, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}
               >
                 <PillButton href="#work">Explore Projects</PillButton>
-                <motion.a
+                <a
                   href="#volunteering"
                   style={{
                     display: 'inline-flex',
@@ -189,21 +250,17 @@ export default function Hero() {
                     textDecoration: 'none',
                     transition: 'transform 0.2s ease, background 0.2s ease, color 0.2s ease',
                   }}
-                  whileHover={{ scale: 0.98 }}
-                  whileTap={{ scale: 0.96 }}
                 >
                   Community Work
-                </motion.a>
-              </motion.div>
+                </a>
+              </div>
             )}
           </div>
 
           {/* Right: media frame (desktop only) */}
           {!isMobile && (
-            <motion.div
-              initial={{ opacity: 0.1, scale: 0.3, x: 220, y: -220 }}
-              animate={{ opacity: loaded ? 1 : 0.1, scale: loaded ? 1 : 0.3, x: loaded ? 0 : 220, y: loaded ? 0 : -220 }}
-              transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 }}
+            <div
+              ref={mediaRef}
               style={{
                 justifySelf: 'end',
                 width: 560,
@@ -220,19 +277,17 @@ export default function Hero() {
               <GridMotion
                 gradientColor="black"
                 maxMoveAmount={260}
-                items={[
-                  g1, g2, g3, g4, g5, g6, g7,
-                  g8, g9, g10, g11, g1, g2, g3,
-                  g4, g5, g6, g7, g8, g9, g10,
-                  g11, g1, g2, g3, g4, g5, g6,
-                ]}
+                items={HERO_GRID_ITEMS}
+                interactive
               />
-            </motion.div>
+            </div>
           )}
         </div>
 
         {/* Code / Create / Conquer strip (behind media, no negative margins) */}
-        <div style={{
+        <div
+          ref={stripRef}
+          style={{
           position: 'absolute',
           left: 0,
           right: 0,
@@ -272,20 +327,15 @@ export default function Hero() {
 
       {/* Bottom bar + Big title */}
       <div style={{ marginTop: isMobile ? 16 : 40 }}>
-        <motion.div
-          initial={{ opacity: 1, x: -1520 }}
-          animate={{ opacity: 1, x: loaded ? 0 : -1520 }}
-          transition={{ type: 'spring', stiffness: 220, damping: 48, delay: 0.22 }}
+        <div
+          ref={topDividerRef}
           style={{ width: '100%', height: 1, background: 'rgba(187,187,187,0.2)' }}
         />
 
         {/* Big name */}
         <div style={{ padding: '0 0', overflow: 'hidden', position: 'relative', width: '100vw', marginLeft: 'calc(50% - 50vw)' }}>
-          <motion.div
+          <div
             ref={heroNameRef}
-            initial={{ opacity: 1, scale: 0.6, y: -350 }}
-            animate={{ opacity: 1, scale: loaded ? 1 : 0.6, y: loaded ? 0 : -350 }}
-            transition={{ duration: 0.85, ease: [0.95, -0.02, 0.38, 1], delay: 0.1 }}
             style={{ padding: '8px 24px', overflow: 'hidden' }}
           >
             <h1 className="hero-title" style={{
@@ -297,13 +347,11 @@ export default function Hero() {
             }}>
               {heroName}<span className="hero-cursor">|</span>
             </h1>
-          </motion.div>
+          </div>
 
           {/* Loader overlay */}
-          <motion.div
-            initial={{ opacity: 0.9, x: 0 }}
-            animate={{ opacity: 0.9, x: loaded ? -2000 : 0 }}
-            transition={{ type: 'spring', bounce: 0.2, delay: 0.18, duration: 0.9 }}
+          <div
+            ref={loaderRef}
             style={{
               position: 'absolute', inset: 0,
               background: '#000', zIndex: 1,
@@ -312,10 +360,8 @@ export default function Hero() {
           />
         </div>
 
-        <motion.div
-          initial={{ opacity: 1, x: -1520 }}
-          animate={{ opacity: 1, x: loaded ? 0 : -1520 }}
-          transition={{ type: 'spring', stiffness: 220, damping: 48, delay: 0.22 }}
+        <div
+          ref={bottomDividerRef}
           style={{ width: '100%', height: 1, background: 'rgba(187,187,187,0.2)' }}
         />
       </div>

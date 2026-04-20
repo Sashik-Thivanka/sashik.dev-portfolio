@@ -117,9 +117,10 @@ export default function About() {
         style={{
           display: 'flex',
           gap: 80,
-          padding: '40px 24px 0',
+          padding: isMobile ? '32px 16px 42px' : '40px 24px 42px',
           flexWrap: 'wrap',
-          position: 'relative'
+          position: 'relative',
+          overflow: 'visible',
         }}
       >
 
@@ -216,14 +217,14 @@ export default function About() {
             position: 'absolute',
             left: 0,
             right: 0,
-            bottom: -10,
+            bottom: 0,
             height: 26,
             background: '#fff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 24px',
-            zIndex: 0
+            padding: isMobile ? '0 16px' : '0 24px',
+            zIndex: 2
           }}
         >
           {aboutStripItems.map(item => (

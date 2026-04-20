@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { RollingText } from './UI'
+import StaggeredMenu from './StaggeredMenu'
 
 function useIsMobile(bp = 768) {
   const [mobile, setMobile] = useState(() => window.innerWidth <= bp)
@@ -17,6 +18,19 @@ const quickLinks = [
   { label: 'Projects,', href: '#work' },
   { label: 'About,', href: '#about' },
   { label: 'Contact', href: '#contact' },
+]
+
+const mobileMenuItems = [
+  { label: 'Home', ariaLabel: 'Go to home section', link: '#top' },
+  { label: 'Projects', ariaLabel: 'View projects section', link: '#work' },
+  { label: 'About', ariaLabel: 'Learn more about me', link: '#about' },
+  { label: 'Contact', ariaLabel: 'Go to contact section', link: '#contact' },
+]
+
+const mobileSocialItems = [
+  { label: 'LinkedIn', link: 'https://www.linkedin.com/in/sashikdevx/' },
+  { label: 'GitHub', link: 'https://github.com/Sashik-Thivanka' },
+  { label: 'Stack Overflow', link: 'https://stackoverflow.com/users/24842082/sashik-thivanka' },
 ]
 
 export default function Nav() {
@@ -48,6 +62,26 @@ export default function Nav() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [lastScroll])
+
+  if (isMobile) {
+    return (
+      <StaggeredMenu
+        position="right"
+        items={mobileMenuItems}
+        socialItems={mobileSocialItems}
+        displaySocials
+        displayItemNumbering
+        menuButtonColor="#ffffff"
+        openMenuButtonColor="#111111"
+        changeMenuColorOnOpen
+        colors={['#101010', '#1f1f1f']}
+        logoText="Sashik dev"
+        logoHref="#top"
+        accentColor="#e5000a"
+        isFixed
+      />
+    )
+  }
 
   return (
     <motion.header

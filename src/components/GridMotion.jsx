@@ -8,7 +8,7 @@ const isImageLike = (value) => {
   return /\.(png|jpe?g|webp|gif|avif)(\?.*)?$/i.test(value)
 }
 
-const GridMotion = ({ items = [], gradientColor = 'black', maxMoveAmount = 260 }) => {
+const GridMotion = ({ items = [], gradientColor = 'black', maxMoveAmount = 260, interactive = true }) => {
   const rowRefs = useRef([])
   const mouseXRef = useRef(typeof window !== 'undefined' ? window.innerWidth / 2 : 0)
   const targetXRef = useRef([0, 0, 0, 0])
@@ -21,14 +21,16 @@ const GridMotion = ({ items = [], gradientColor = 'black', maxMoveAmount = 260 }
   }, [items])
 
   useEffect(() => {
+    if (!interactive) return
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion) return
+    const isCoarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches
+    if (prefersReducedMotion || isCoarsePointer) return
 
     const setters = rowRefs.current.map((row) => (row ? gsap.quickSetter(row, 'x', 'px') : null))
 
     const handlePointerMove = (e) => {
-      // Touch support (uses the first touch point)
-      const clientX = e.touches?.[0]?.clientX ?? e.clientX
+      const clientX = e.clientX
       if (typeof clientX === 'number') mouseXRef.current = clientX
 
       const normalized = (mouseXRef.current / window.innerWidth) * maxMoveAmount - maxMoveAmount / 2
@@ -54,14 +56,12 @@ const GridMotion = ({ items = [], gradientColor = 'black', maxMoveAmount = 260 }
     handlePointerMove({ clientX: mouseXRef.current })
     gsap.ticker.add(updateMotion)
     window.addEventListener('mousemove', handlePointerMove)
-    window.addEventListener('touchmove', handlePointerMove, { passive: true })
 
     return () => {
       window.removeEventListener('mousemove', handlePointerMove)
-      window.removeEventListener('touchmove', handlePointerMove)
       gsap.ticker.remove(updateMotion)
     }
-  }, [maxMoveAmount])
+  }, [interactive, maxMoveAmount])
 
   return (
     <div className="gridMotion-root">

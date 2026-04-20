@@ -202,19 +202,23 @@ export default function VolunteeringDetail({ item, onBack, onItemClick }) {
 
         {/* ── Two-column layout ── */}
         <div style={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          gap: isMobile ? 0 : 60,
+          display: isMobile ? 'flex' : 'grid',
+          flexDirection: isMobile ? 'column' : undefined,
+          gridTemplateColumns: isMobile ? undefined : '340px minmax(0, 1fr)',
+          columnGap: isMobile ? undefined : 60,
+          rowGap: isMobile ? 0 : undefined,
           padding: isMobile ? '0 16px' : '0 24px',
           alignItems: 'flex-start',
+          overflow: 'visible',
         }}>
 
           {/* Left: sticky info panel */}
           <div style={{
-            width: isMobile ? '100%' : 340,
+            width: '100%',
             flexShrink: 0,
+            alignSelf: 'flex-start',
             position: isMobile ? 'static' : 'sticky',
-            top: 94,
+            top: 110,
             paddingTop: isMobile ? 32 : 48,
             paddingBottom: isMobile ? 36 : 60,
             borderBottom: isMobile ? '1px solid rgba(187,187,187,0.12)' : 'none',
@@ -256,6 +260,7 @@ export default function VolunteeringDetail({ item, onBack, onItemClick }) {
             paddingTop: isMobile ? 28 : 48,
             paddingBottom: 60,
             width: isMobile ? '100%' : 'auto',
+            minWidth: 0,
           }}>
             {item.images.map((src, i) => (
               <motion.div

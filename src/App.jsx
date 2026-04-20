@@ -99,7 +99,7 @@ export default function App() {
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
             }}
-            style={{ background: '#000', minHeight: '100vh', overflowX: 'hidden' }}
+            style={{ background: '#000', minHeight: '100vh', overflowX: 'clip' }}
           >
             <CustomCursor />
             <Nav />

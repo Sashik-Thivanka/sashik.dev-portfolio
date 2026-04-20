@@ -85,6 +85,23 @@ export default function Hero() {
     }
   }, [])
 
+  // Set hidden initial states synchronously on first mount so there's no flash
+  // of fully-rendered hero under the splash before GSAP takes over.
+  useLayoutEffect(() => {
+    const hasPlayed = sessionStorage.getItem('hero-intro-played') === '1'
+    if (hasPlayed) return
+
+    if (mediaRef.current) gsap.set(mediaRef.current, { opacity: 0, y: 32, scale: 0.94 })
+    if (titleRef.current) gsap.set(titleRef.current, { opacity: 0, y: 48 })
+    if (paragraphRef.current) gsap.set(paragraphRef.current, { opacity: 0, y: 28 })
+    if (ctaRef.current) gsap.set(ctaRef.current, { opacity: 0, y: 20 })
+    if (stripRef.current) gsap.set(stripRef.current, { y: 30 })
+    if (topDividerRef.current) gsap.set(topDividerRef.current, { scaleX: 0, transformOrigin: 'left center' })
+    if (bottomDividerRef.current) gsap.set(bottomDividerRef.current, { scaleX: 0, transformOrigin: 'left center' })
+    if (heroNameRef.current) gsap.set(heroNameRef.current, { yPercent: 100, opacity: 0 })
+    if (loaderRef.current) gsap.set(loaderRef.current, { xPercent: 0 })
+  }, [])
+
   useLayoutEffect(() => {
     if (!loaded) return
 
@@ -98,27 +115,22 @@ export default function Hero() {
         return
       }
 
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      // Delay the whole intro so it plays AFTER the splash screen finishes
+      // fading out (splash fade: 0.15s delay + 0.5s duration = 0.65s).
+      const tl = gsap.timeline({
+        delay: 0.72,
+        defaults: { ease: 'power3.out' },
+      })
 
-      if (mediaRef.current) gsap.set(mediaRef.current, { opacity: 0, y: 28, scale: 0.96 })
-      if (titleRef.current) gsap.set(titleRef.current, { opacity: 0, y: 42 })
-      if (paragraphRef.current) gsap.set(paragraphRef.current, { opacity: 0, y: 24 })
-      if (ctaRef.current) gsap.set(ctaRef.current, { opacity: 0, y: 18 })
-      if (stripRef.current) gsap.set(stripRef.current, { y: 26 })
-      if (topDividerRef.current) gsap.set(topDividerRef.current, { scaleX: 0, transformOrigin: 'left center' })
-      if (bottomDividerRef.current) gsap.set(bottomDividerRef.current, { scaleX: 0, transformOrigin: 'left center' })
-      if (heroNameRef.current) gsap.set(heroNameRef.current, { yPercent: 100, opacity: 0 })
-      if (loaderRef.current) gsap.set(loaderRef.current, { xPercent: 0 })
-
-      if (mediaRef.current) tl.to(mediaRef.current, { opacity: 1, y: 0, scale: 1, duration: 0.75 }, 0.05)
-      if (titleRef.current) tl.to(titleRef.current, { opacity: 1, y: 0, duration: 0.62 }, 0.1)
-      if (paragraphRef.current) tl.to(paragraphRef.current, { opacity: 1, y: 0, duration: 0.55 }, 0.2)
-      if (ctaRef.current) tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.48 }, 0.3)
-      if (stripRef.current) tl.to(stripRef.current, { y: 0, duration: 0.5 }, 0.24)
-      if (topDividerRef.current) tl.to(topDividerRef.current, { scaleX: 1, duration: 0.72 }, 0.34)
-      if (heroNameRef.current) tl.to(heroNameRef.current, { opacity: 1, yPercent: 0, duration: 0.9, ease: 'power4.out' }, 0.44)
-      if (loaderRef.current) tl.to(loaderRef.current, { xPercent: -110, duration: 0.9, ease: 'power3.inOut' }, 0.6)
-      if (bottomDividerRef.current) tl.to(bottomDividerRef.current, { scaleX: 1, duration: 0.72 }, 0.74)
+      if (mediaRef.current) tl.to(mediaRef.current, { opacity: 1, y: 0, scale: 1, duration: 0.85, ease: 'expo.out' }, 0)
+      if (titleRef.current) tl.to(titleRef.current, { opacity: 1, y: 0, duration: 0.72 }, 0.08)
+      if (paragraphRef.current) tl.to(paragraphRef.current, { opacity: 1, y: 0, duration: 0.6 }, 0.22)
+      if (ctaRef.current) tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.52 }, 0.34)
+      if (stripRef.current) tl.to(stripRef.current, { y: 0, duration: 0.55, ease: 'expo.out' }, 0.28)
+      if (topDividerRef.current) tl.to(topDividerRef.current, { scaleX: 1, duration: 0.8 }, 0.4)
+      if (heroNameRef.current) tl.to(heroNameRef.current, { opacity: 1, yPercent: 0, duration: 1.0, ease: 'power4.out' }, 0.5)
+      if (loaderRef.current) tl.to(loaderRef.current, { xPercent: -110, duration: 1.0, ease: 'power3.inOut' }, 0.66)
+      if (bottomDividerRef.current) tl.to(bottomDividerRef.current, { scaleX: 1, duration: 0.8 }, 0.82)
 
       sessionStorage.setItem('hero-intro-played', '1')
     }, containerRef)
@@ -134,7 +146,11 @@ export default function Hero() {
     const HOLD         = 1.4    // seconds to hold the completed word
     const PAUSE        = 0.25   // seconds of blank gap before the next word
 
-    const tl = gsap.timeline({ repeat: -1 })
+    const hasPlayed = sessionStorage.getItem('hero-intro-played') === '1'
+    // On first visit, wait for the intro timeline to reveal the big title before typing.
+    const startDelay = hasPlayed ? 0 : 1.5
+
+    const tl = gsap.timeline({ repeat: -1, delay: startDelay })
 
     TYPEWRITER_WORDS.forEach((word) => {
       // Type each character

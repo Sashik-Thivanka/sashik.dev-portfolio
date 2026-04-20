@@ -25,6 +25,7 @@ export default function BrutalReveal({
         autoAlpha: 0,
         y: distance,
         filter: 'blur(4px)',
+        willChange: 'transform, opacity, filter',
       })
 
       gsap.to(el, {
@@ -34,7 +35,7 @@ export default function BrutalReveal({
         duration,
         delay,
         ease: 'power3.out',
-        clearProps: 'filter',
+        clearProps: 'filter,willChange,transform',
         scrollTrigger: {
           trigger: el,
           start,
@@ -47,9 +48,5 @@ export default function BrutalReveal({
     return () => ctx.revert()
   }, [start, distance, duration, delay])
 
-  return (
-    <div ref={wrapRef} style={{ willChange: 'transform, opacity, filter' }}>
-      {children}
-    </div>
-  )
+  return <div ref={wrapRef}>{children}</div>
 }

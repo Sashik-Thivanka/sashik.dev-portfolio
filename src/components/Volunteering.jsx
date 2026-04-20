@@ -326,8 +326,10 @@ export default function Volunteering({ onItemClick }) {
                 scrollPaddingRight: 16,
                 overscrollBehaviorX: 'contain',
                 paddingBottom: 8,
-                // Let cards render edge-to-edge on small screens (no fade mask cropping).
-                touchAction: 'pan-y',
+                // Allow horizontal swipe for the carousel while still letting vertical
+                // swipes bubble up to scroll the page (previous value 'pan-y' blocked
+                // horizontal touch gestures entirely).
+                touchAction: 'pan-x pan-y',
               }}
             >
               {volunteeringItems.map((item, idx) => (

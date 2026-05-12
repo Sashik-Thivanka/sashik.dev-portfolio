@@ -20,6 +20,8 @@ const quickLinks = [
   { label: 'Contact', href: '#contact' },
 ]
 
+const profileHref = 'https://sashik.dev/sashik-thivanka/'
+
 const mobileMenuItems = [
   { label: 'Home', ariaLabel: 'Go to home section', link: '#top' },
   { label: 'Projects', ariaLabel: 'View projects section', link: '#work' },
@@ -75,8 +77,8 @@ export default function Nav() {
         openMenuButtonColor="#111111"
         changeMenuColorOnOpen
         colors={['#101010', '#1f1f1f']}
-        logoText="Sashik dev"
-        logoHref="#top"
+        logoText="Sashik Thivanka"
+        logoHref={profileHref}
         accentColor="#e5000a"
         isFixed
       />
@@ -102,13 +104,13 @@ export default function Nav() {
         padding: '26px 24px',
       }}>
         <div style={{ flex: 1 }}>
-          <a href="#top" style={{
+          <a href={profileHref} aria-label="Sashik Thivanka profile" style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: 22, fontWeight: 400,
             letterSpacing: '-0.3px', color: '#fff',
             mixBlendMode: 'difference'
           }}>
-            Sashik <sup style={{ fontSize: 12, fontWeight: 400, letterSpacing: '-0.3px', color: '#fff', mixBlendMode: 'difference' }}>dev</sup>
+            Sashik <sup style={{ fontSize: 12, fontWeight: 400, letterSpacing: '-0.3px', color: '#fff', mixBlendMode: 'difference' }}>Thivanka</sup>
           </a>
         </div>
 

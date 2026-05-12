@@ -33,6 +33,7 @@ const navLinks = [
   { label: 'Contact',  href: '#contact' },
 ]
 
+const profileHref = 'https://sashik.dev/sashik-thivanka/'
 
 /** Same width/height rhythm as the original Framer strip (tall / wide / …), then repeat for extra slides. */
 const galleryImgs = [
@@ -154,7 +155,11 @@ function Footer() {
         }}>
 
           {/* Left — logo with blinking dot */}
-          <div style={{ position: 'relative', display: 'inline-block', flexShrink: 0 }}>
+          <a
+            href={profileHref}
+            aria-label="Sashik Thivanka profile"
+            style={{ position: 'relative', display: 'inline-block', flexShrink: 0 }}
+          >
             <img
               src={logoSrc}
               alt="Sashik Thivanka"
@@ -172,7 +177,7 @@ function Footer() {
               display: 'block',
               animation: 'preloaderDot 1.1s ease-in-out infinite',
             }} />
-          </div>
+          </a>
 
           {/* Center — Navigate + Socials grouped together */}
           {!isMobile && (
@@ -307,7 +312,14 @@ function Footer() {
             textTransform: 'uppercase',
             color: 'rgba(153,153,153,0.5)',
           }}>
-            © 2026 Sashik Thivanka. 
+            © 2026{' '}
+            <a
+              href={profileHref}
+              style={{ color: 'inherit', textDecoration: 'none' }}
+              aria-label="Sashik Thivanka profile"
+            >
+              Sashik Thivanka
+            </a>.
           </span>
           <span style={{
             fontFamily: "'Inter', sans-serif",

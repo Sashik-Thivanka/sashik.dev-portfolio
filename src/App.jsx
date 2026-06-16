@@ -81,14 +81,16 @@ export default function App() {
           </Suspense>
         )}
 
-        {/* Main portfolio */}
-        {contentReady && !selectedWork && !selectedVolunteering && (
+        {/* Main portfolio — always in DOM so search crawlers can index all content.
+            Visual reveal is controlled by opacity (contentReady), not conditional rendering. */}
+        {!selectedWork && !selectedVolunteering && (
           <motion.div
             key="main"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: contentReady ? 1 : 0 }}
             transition={{ duration: 0.55, ease: 'easeOut' }}
             onAnimationComplete={() => {
+              if (!contentReady) return
               if (scrollToWorkRef.current) {
                 scrollToWorkRef.current = false
                 document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })

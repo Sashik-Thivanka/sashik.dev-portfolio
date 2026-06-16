@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
 
-# Replace with your production sitemap URL if your domain changes.
+# Block irrelevant build/source paths if they ever become publicly accessible
+Disallow: /src/
+Disallow: /node_modules/
+
 Sitemap: https://sashik.dev/sitemap.xml
